@@ -5,7 +5,7 @@ var uncons = (t) => (n) => (c) => t(n)(c);
 var _length = (l) => uncons(l)(0)((h) => (t) => 1 + _length(t));
 
 extension List on Function {
-  append(dynamic value) {
+  prepend(dynamic value) {
     return cons(value)(this);
   }
 
@@ -16,9 +16,9 @@ void main() {
   var list = Nil;
   assert(list.length == 0);
 
-  list = list.append(42);
+  list = list.prepend(42);
   assert(list.length == 1);
 
-  list = list.append(15);
+  list = list.prepend(15);
   assert(list.length == 2);
 }
