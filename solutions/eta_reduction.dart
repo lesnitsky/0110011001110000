@@ -1,7 +1,7 @@
 import '../base/base.dart';
 import 'church_bool.dart';
 
-var cond = (b) => identity(b);
+var cond = identity;
 
 void main() {
   assert(cond(True)(1)(2) == 1);
