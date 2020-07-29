@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0c0e5ab51c04fa8e38efa866e1f42eee5cb036c0c69902713d677bad8c4e9000
+-- hash: 3728379b61864f03620195fb5989cad2ecb1466c7491587d1e600c6f230890d7
 
 name:           hello-hs
 version:        0.1.0.0
@@ -37,6 +37,8 @@ library
   default-extensions: NoImplicitPrelude InstanceSigs
   build-depends:
       base >=4.7 && <5
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 executable hello-hs
@@ -50,17 +52,23 @@ executable hello-hs
   build-depends:
       base >=4.7 && <5
     , hello-hs
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 test-suite hello-hs-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Test.Bool
       Paths_hello_hs
   hs-source-dirs:
       test
+  default-extensions: NoImplicitPrelude PackageImports
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , hello-hs
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
