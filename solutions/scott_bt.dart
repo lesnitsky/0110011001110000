@@ -6,16 +6,16 @@ var _ = identity;
 
 var Empty = (c) => (_) => (_) => c;
 var Leaf = (v) => (_) => (c) => (_) => c(v);
-var Node = (v) => (l) => (r) => (_) => (_) => (c) => c(Leaf(v))(l)(r);
+var Node = (v) => (l) => (r) => (_) => (_) => (c) => c(v)(l)(r);
 
+var _value = (v) => (_) => (_) => v;
 var _left = (_) => (l) => (_) => l;
 var _right = (_) => (_) => (r) => r;
 
 var $ = (node) => node(_)(_);
 
-var leaf = (f) => (l) => (_) => (_) => f(l);
 var children = (f) => (g) => (_) => (l) => (r) => f(g(l))(g(r));
-var value = (node) => $(node)(leaf(value));
+var value = (node) => $(node)(_value);
 var left = (node) => $(node)(_left);
 var right = (node) => $(node)(_right);
 
@@ -33,5 +33,5 @@ void main() {
   assert(value(left(n)) == 42);
   assert(right(n) == Empty);
 
-  print(lengthT(n));
+  assert(lengthT(n) == 3);
 }
