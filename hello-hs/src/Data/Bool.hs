@@ -8,11 +8,6 @@ data Bool
   = True
   | False
 
--- stringify :: Bool -> String
--- stringify = \case
---   True -> "True"
---   False -> "False"
-
 stringify :: Bool -> String
 stringify True = "True"
 stringify False = "False"
@@ -21,12 +16,23 @@ stringify False = "False"
 True && True = True
 _ && _ = False
 
--- x && y = case x of
---   True -> case y of
---     True -> True
---     False -> False
---   False -> False
-
--- stringify (True `and` False)
 and :: Bool -> Bool -> Bool
 and = (&&)
+
+(||) :: Bool -> Bool -> Bool
+False || False = False
+_ || _ = True
+
+not :: Bool -> Bool
+not True = False
+not False = True
+
+(^) :: Bool -> Bool -> Bool
+False ^ False = False
+True ^ True = False
+_ ^ _ = True
+
+cond :: Bool -> a -> a -> a
+cond b x y = case b of
+  True -> x
+  False -> y
