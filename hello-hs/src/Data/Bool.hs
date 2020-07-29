@@ -33,6 +33,5 @@ True ^ True = False
 _ ^ _ = True
 
 cond :: Bool -> a -> a -> a
-cond b x y = case b of
-  True -> x
-  False -> y
+cond True a _ = a
+cond False _ b = b
