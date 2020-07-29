@@ -2,15 +2,11 @@
 
 module Data.Bool where
 
-import           Prelude (Show (show))
-
+import           Prelude (Eq, Show)
 data Bool
   = True
   | False
-
-instance Show Bool where
-  show True  = "True"
-  show False = "False"
+  deriving (Show, Eq)
 
 (&&) :: Bool -> Bool -> Bool
 True && True = True
