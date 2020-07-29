@@ -24,11 +24,15 @@ dependencies:
 
 library:
   source-dirs: src
-  default-extensions: NoImplicitPrelude
+  default-extensions:
+    - NoImplicitPrelude
+    - InstanceSigs
 
 executables:
   hello-hs:
-    default-extensions: NoImplicitPrelude
+    default-extensions:
+      - NoImplicitPrelude
+      - InstanceSigs
     main: Main.hs
     source-dirs: app
     ghc-options:
