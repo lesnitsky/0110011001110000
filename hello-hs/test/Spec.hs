@@ -1,2 +1,8 @@
+import Test.Tasty
+
+import Prelude (IO)
+
+import Test.Bool
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = defaultMain boolTests
