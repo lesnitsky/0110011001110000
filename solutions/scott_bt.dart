@@ -23,7 +23,7 @@ var right = (node) => $(node)(_right);
 //     node(0)((_) => 1)((_) => (l) => (r) => 1 + lengthT(l) + lengthT(r));
 
 var lengthT =
-    (node) => node(0)((_) => 1)(children((l) => (r) => 1 + l + r)(lengthT));
+    (node) => node(0)(constant(1))(children((l) => (r) => 1 + l + r)(lengthT));
 
 void main() {
   var l = Node(42)(Leaf(34))(Empty);
