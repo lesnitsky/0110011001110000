@@ -2,7 +2,7 @@ module Data.Temperature where
 
 import           Base.Sugar (($))
 import           Prelude    (Bool, Double, Eq ((==)), Show (show), (*), (+),
-                             (++))
+                             (++), (>))
 
 instance Show Temperature where
   show (Celsius t)    = (show t) ++ "°C"
@@ -22,3 +22,7 @@ instance Eq Temperature where
 ctof :: Temperature -> Temperature
 ctof (Celsius t) = Fahrenheit $ t * 1.8 + 32
 ctof t           = t
+
+warm :: Temperature -> Bool
+warm (Celsius c)    = c > 28
+warm (Fahrenheit f) = f > 90
