@@ -1,3 +1,5 @@
+{-# LANGUAGE PackageImports #-}
+
 module Test.Bool where
 
 import Test.Tasty

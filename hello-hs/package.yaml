@@ -24,17 +24,18 @@ dependencies:
   - tasty
   - tasty-hunit
 
-library:
-  source-dirs: src
+x-language-extensions: &language-extensions
   default-extensions:
     - NoImplicitPrelude
+    - LambdaCase
     - InstanceSigs
+
+library:
+  source-dirs: src
+  <<: *language-extensions
 
 executables:
   hello-hs:
-    default-extensions:
-      - NoImplicitPrelude
-      - InstanceSigs
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -44,6 +45,7 @@ executables:
       - -Wall
     dependencies:
       - hello-hs
+    <<: *language-extensions
 
 tests:
   hello-hs-test:
@@ -55,6 +57,4 @@ tests:
       - -with-rtsopts=-N
     dependencies:
       - hello-hs
-    default-extensions:
-      - NoImplicitPrelude
-      - PackageImports
+    <<: *language-extensions
