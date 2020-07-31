@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3728379b61864f03620195fb5989cad2ecb1466c7491587d1e600c6f230890d7
+-- hash: b47c6ee0fd46a63211072eaf1a07199409d38e2017da8263fb81406f7c57f988
 
 name:           hello-hs
 version:        0.1.0.0
@@ -29,12 +29,14 @@ library
   exposed-modules:
       Base.Sugar
       Data.Bool
+      Data.List
+      Data.Maybe
       Data.Temperature
   other-modules:
       Paths_hello_hs
   hs-source-dirs:
       src
-  default-extensions: NoImplicitPrelude InstanceSigs
+  default-extensions: NoImplicitPrelude LambdaCase InstanceSigs
   build-depends:
       base >=4.7 && <5
     , tasty
@@ -47,7 +49,7 @@ executable hello-hs
       Paths_hello_hs
   hs-source-dirs:
       app
-  default-extensions: NoImplicitPrelude InstanceSigs
+  default-extensions: NoImplicitPrelude LambdaCase InstanceSigs
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       base >=4.7 && <5
@@ -64,7 +66,7 @@ test-suite hello-hs-test
       Paths_hello_hs
   hs-source-dirs:
       test
-  default-extensions: NoImplicitPrelude PackageImports
+  default-extensions: NoImplicitPrelude LambdaCase InstanceSigs
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

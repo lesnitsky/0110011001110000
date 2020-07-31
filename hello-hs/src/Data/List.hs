@@ -1,6 +1,7 @@
 module Data.List where
 
 import           Prelude (Int, Show (show), String, (+), (++))
+
 data List a
   = Nil
   | Cons a (List a)
@@ -15,7 +16,6 @@ length (Cons _ l) = 1 + length l
 instance Show a => Show (List a) where
   show :: List a -> String
   show l = "[" ++ join l ++ "]"
-
     where
       join :: Show a => List a -> String
       join Nil          = ""
