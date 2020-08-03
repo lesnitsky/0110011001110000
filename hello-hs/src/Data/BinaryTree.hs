@@ -1,6 +1,7 @@
 module Data.BinaryTree where
 
-import           Prelude (Eq, Int, Show, (+))
+import           Data.Bool (Bool (False, True))
+import           Prelude   (Eq, Int, Show, (+))
 
 data Tree a
   = Empty
@@ -16,5 +17,15 @@ lengthT Empty               = 0
 lengthT (Leaf _)            = 1
 lengthT (Node _ left right) = 1 + lengthT left + lengthT right
 
+isEmpty :: Tree a -> Bool
+isEmpty Empty = True
+isEmpty _     = False
+
 -- >>> lengthT t
 -- 4
+
+-- >>> isEmpty t
+-- False
+
+-- >>> isEmpty Empty
+-- True
