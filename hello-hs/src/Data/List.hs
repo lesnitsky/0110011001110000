@@ -1,6 +1,7 @@
 module Data.List where
 
-import           Prelude (Int, Show (show), String, (+), (++))
+import           Data.Bool (Bool (False, True))
+import           Prelude   (Int, Show (show), String, (+), (++))
 
 data List a
   = Nil
@@ -12,6 +13,16 @@ l3 = Cons 2 (Cons 1 (Cons 0 Nil))
 length :: List a -> Int
 length Nil        = 0
 length (Cons _ l) = 1 + length l
+
+isEmpty :: List a -> Bool
+isEmpty Nil = True
+isEmpty _   = False
+
+-- >>> isEmpty l3
+-- False
+
+-- >>> isEmpty Nil
+-- True
 
 instance Show a => Show (List a) where
   show :: List a -> String
