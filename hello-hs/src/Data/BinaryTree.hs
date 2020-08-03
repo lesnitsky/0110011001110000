@@ -35,7 +35,7 @@ isEmpty _     = False
 
 fold :: a -> (a -> a -> a) -> Tree a -> a
 fold d _ Empty               = d
-fold _ _ (Leaf v)            = v
+fold d f (Leaf v)            = f d v
 fold d f (Node v left right) = f (f v (fold d f left)) (fold d f right)
 
 sum :: Tree Int -> Int
