@@ -1,7 +1,7 @@
 module Data.BinaryTree where
 
 import           Data.Bool (Bool (False, True))
-import           Prelude   (Eq, Int, Show, (+))
+import           Prelude   (Eq, Int, Show, (*), (+))
 
 data Tree a
   = Empty
@@ -10,7 +10,7 @@ data Tree a
   deriving (Show, Eq)
 
 t :: Tree Int
-t = Node 0 (Node 1 (Leaf 2) (Leaf 3)) Empty
+t = Node 1 (Node 2 (Leaf 3) (Leaf 4)) Empty
 
 lengthT :: Tree a -> Int
 lengthT Empty               = 0
@@ -32,3 +32,26 @@ isEmpty _     = False
 
 -- >>> isEmpty Empty
 -- True
+
+fold :: a -> (a -> a -> a) -> Tree a -> a
+fold d _ Empty               = d
+fold _ _ (Leaf v)            = v
+fold d f (Node v left right) = f (f v (fold d f left)) (fold d f right)
+
+sum :: Tree Int -> Int
+sum = fold 0 (+)
+
+-- >>> Data.BinaryTree.sum Empty
+-- 0
+
+-- >>> Data.BinaryTree.sum t
+-- 6
+
+product :: Tree Int -> Int
+product = fold 1 (*)
+
+-- >>> Data.BinaryTree.product Empty
+-- 1
+
+-- >>> Data.BinaryTree.product t
+-- 24
