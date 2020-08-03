@@ -14,6 +14,12 @@ length :: List a -> Int
 length Nil        = 0
 length (Cons _ l) = 1 + length l
 
+-- >>> Data.List.length Nil
+-- 0
+
+-- >>> Data.List.length l3
+-- 3
+
 isEmpty :: List a -> Bool
 isEmpty Nil = True
 isEmpty _   = False
@@ -38,9 +44,3 @@ instance Show a => Show (List a) where
 
 -- >>> show (Cons 1 Nil)
 -- "[1]"
-
--- >>> Data.List.length Nil
--- 0
-
--- >>> Data.List.length l3
--- 3
