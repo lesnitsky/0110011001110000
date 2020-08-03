@@ -17,12 +17,15 @@ lengthT Empty               = 0
 lengthT (Leaf _)            = 1
 lengthT (Node _ left right) = 1 + lengthT left + lengthT right
 
+-- >>> lengthT t
+-- 4
+
+-- >>> lengthT Empty
+-- 0
+
 isEmpty :: Tree a -> Bool
 isEmpty Empty = True
 isEmpty _     = False
-
--- >>> lengthT t
--- 4
 
 -- >>> isEmpty t
 -- False
