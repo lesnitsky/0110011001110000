@@ -1,7 +1,9 @@
 module Data.List where
 
-import           Data.Bool (Bool (False, True))
-import           Prelude   (Int, Show (show), String, (+), (++))
+import           Data.Maybe (Maybe (Nothing))
+import           Data.Maybe (Maybe (Just))
+import           Prelude    (Bool (..), Eq, Int, Show (show), String, (+), (++),
+                             (==), (||))
 
 data List a
   = Nil
@@ -44,3 +46,30 @@ instance Show a => Show (List a) where
 
 -- >>> show (Cons 1 Nil)
 -- "[1]"
+
+contains :: Eq a => a -> List a -> Bool
+contains _ Nil        = False
+contains a (Cons h t) = h == a || contains a t
+
+-- >>> contains 1 (Cons 1 Nil)
+-- True
+
+-- >>> contains 2 Nil
+-- False
+
+(<|) :: a -> List a -> List a
+(<|) = Cons
+infixr 5 <|
+
+-- >>> contains 1 (1 <| 2 <| Nil)
+-- True
+
+head :: List a -> Maybe a
+head Nil        = Nothing
+head (Cons h _) = Just h
+
+l :: List Int
+l = 1 <| 2 <| 3 <| Nil
+
+-- >>> Data.List.head l
+-- Just 1
