@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0683894729a09a61318fd49decdb414f3b0468fc20a406169aae93638a913724
+-- hash: 0a1a6f6725077c6988be228fd204ef279db3e9eed06727691c28ecaa0ad4d1b4
 
 name:           hello-hs
 version:        0.1.0.0
@@ -32,7 +32,10 @@ library
       Data.Bool
       Data.List
       Data.Maybe
+      Data.StringInstances
       Data.Temperature
+      Data.Tuple
+      Encoding.RLE
   other-modules:
       Paths_hello_hs
   hs-source-dirs:
