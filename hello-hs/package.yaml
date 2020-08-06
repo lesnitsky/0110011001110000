@@ -29,6 +29,7 @@ x-language-extensions: &language-extensions
     - NoImplicitPrelude
     - LambdaCase
     - InstanceSigs
+    - OverloadedStrings
 
 library:
   source-dirs: src

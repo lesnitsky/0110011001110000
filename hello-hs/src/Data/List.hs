@@ -2,8 +2,8 @@ module Data.List where
 
 import           Data.Maybe (Maybe (Nothing))
 import           Data.Maybe (Maybe (Just))
-import           Prelude    (Bool (..), Eq, Int, Show (show), String, (+), (++),
-                             (==), (||))
+import           Prelude    (Bool (..), Eq, Int, Show (show), String, fst,
+                             otherwise, snd, (+), (++), (==), (||))
 
 data List a
   = Nil
@@ -68,8 +68,28 @@ head :: List a -> Maybe a
 head Nil        = Nothing
 head (Cons h _) = Just h
 
-l :: List Int
-l = 1 <| 2 <| 3 <| Nil
-
--- >>> Data.List.head l
+-- >>> Data.List.head (1 <| 2 <| 3 <| Nil)
 -- Just 1
+
+group :: Eq a => List a -> List (List a)
+group Nil        = Nil
+group (Cons h t) = let (s, t') = span (\x -> x == h) t in (h <| s) <| group t'
+
+-- >>> Data.List.group (1 <| 1 <| 2 <| 1 <| 3 <| 3 <| 2 <| Nil)
+-- [[1, 1], [2], [1], [3, 3], [2]]
+
+map :: (a -> b) -> List a -> List b
+map _ Nil        = Nil
+map f (Cons h t) = f h <| map f t
+
+span :: (a -> Bool) -> List a -> (List a, List a)
+span = _span (Nil, Nil)
+  where
+    _span :: (List a, List a) -> (a -> Bool) -> List a -> (List a, List a)
+    _span t _ Nil                       = t
+    _span t f l@(Cons h _t) | f h       = _span (h <| fst t, snd t) f _t
+                            | otherwise = (fst t, l)
+
+-- TODO: fix order
+-- >>> Data.List.span (< 5) (1 <| 2 <| 7 <| 9 <| 4 <| 1 <| Nil)
+-- ([2, 1],[7, 9, 4, 1])
