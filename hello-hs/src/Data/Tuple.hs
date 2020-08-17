@@ -1,10 +1,12 @@
 module Data.Tuple where
 
+import           Prelude (Int, String)
 data Tuple a b = Tuple a b
 
 tuple :: a -> b -> Tuple a b
 tuple = Tuple
 
+t :: Tuple Int String
 t = tuple 1 "abc"
 
 fst :: Tuple a b -> a
