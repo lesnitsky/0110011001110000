@@ -109,9 +109,8 @@ product (Cons h t) = h * (product t)
 -- 24
 
 tail :: List a -> Maybe (List a)
-tail Nil          = Nothing
-tail (Cons _ Nil) = Just Nil
-tail (Cons _ t)   = Just t
+tail Nil        = Nothing
+tail (Cons _ t) = Just t
 
 -- >>> Data.List.tail (1 <| 2 <| 3 <| 4 <| Nil)
 -- Just [2, 3, 4]
@@ -141,4 +140,4 @@ init (Cons h t)   = case init t of
 -- Just [1, 2]
 
 -- >>> Data.List.init (1 <| Nil)
--- Nothing
+-- Just []
