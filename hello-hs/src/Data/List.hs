@@ -3,7 +3,7 @@ module Data.List where
 import           Data.Maybe (Maybe (Nothing))
 import           Data.Maybe (Maybe (Just))
 import           Prelude    (Bool (..), Eq, Int, Show (show), String, fst,
-                             otherwise, snd, (+), (++), (==), (||))
+                             otherwise, snd, (*), (+), (++), (==), (||))
 
 data List a
   = Nil
@@ -93,3 +93,17 @@ span = _span (Nil, Nil)
 -- TODO: fix order
 -- >>> Data.List.span (< 5) (1 <| 2 <| 7 <| 9 <| 4 <| 1 <| Nil)
 -- ([2, 1],[7, 9, 4, 1])
+
+sum :: List Int -> Int
+sum Nil        = 0
+sum (Cons h t) = h + sum t
+
+-- >>> Data.List.sum (1 <| 2 <| 3 <| Nil)
+-- 6
+
+product :: List Int -> Int
+product Nil        = 1
+product (Cons h t) = h * (product t)
+
+-- >>> Data.List.sum (1 <| 2 <| 3 <| 4 <| Nil)
+-- 10
