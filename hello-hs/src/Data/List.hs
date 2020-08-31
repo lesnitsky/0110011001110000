@@ -106,11 +106,11 @@ product Nil        = 1
 product (Cons h t) = h * (product t)
 
 -- >>> Data.List.product (1 <| 2 <| 3 <| 4 <| Nil)
--- 10
+-- 24
 
 tail :: List a -> Maybe (List a)
 tail Nil          = Nothing
-tail (Cons _ Nil) = Nothing
+tail (Cons _ Nil) = Just Nil
 tail (Cons _ t)   = Just t
 
 -- >>> Data.List.tail (1 <| 2 <| 3 <| 4 <| Nil)
@@ -132,7 +132,7 @@ last (Cons _ t)   = last t
 
 init :: List a -> Maybe (List a)
 init Nil          = Nothing
-init (Cons _ Nil) = Nothing
+init (Cons _ Nil) = Just Nil
 init (Cons h t)   = case init t of
   Just l  -> Just (Cons h l)
   Nothing -> Just (Cons h Nil)
