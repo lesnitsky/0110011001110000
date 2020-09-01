@@ -43,8 +43,7 @@ init (h :| t) = Cons h case (L.init t) of
 -- []
 
 last :: NonEmpty a -> a
-last (h :| Nil) = h
-last (_ :| t)   = let Just t' = L.last t in t'
+last (h :| t) = let Just t' = L.last (Cons h t) in t'
 
 -- >>> Data.NonEmpty.last (2 :| (3 <| 4 <| Nil))
 -- 4
