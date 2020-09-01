@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: cca867467704a9507a961954a650173a35afdb3bde04410680d46a595fccc855
+-- hash: 7a21c0dced97aae14b074573f9da116c7f6b4c68fa13fa1a0ce91a75214b9c30
 
 name:           hello-hs
 version:        0.1.0.0
@@ -55,7 +55,7 @@ executable hello-hs
   hs-source-dirs:
       app
   default-extensions: NoImplicitPrelude LambdaCase InstanceSigs OverloadedStrings
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -fwarn-incomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
     , hello-hs
