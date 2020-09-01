@@ -32,14 +32,14 @@ isEmpty _   = False
 -- >>> isEmpty Nil
 -- True
 
+join :: Show a => String -> List a -> String
+join _ Nil          = ""
+join _ (Cons h Nil) = show h
+join d (Cons h t)   = show h ++ d ++ join d t
+
 instance Show a => Show (List a) where
   show :: List a -> String
-  show l = "[" ++ join l ++ "]"
-    where
-      join :: Show a => List a -> String
-      join Nil          = ""
-      join (Cons h Nil) = show h
-      join (Cons h t)   = show h ++ ", " ++ join t
+  show l = "[" ++ join ", " l ++ "]"
 
 -- >>> show l3
 -- "[2, 1, 0]"

@@ -5,10 +5,9 @@ import           Data.List  (List (..), (<|))
 import qualified Data.List  as L
 import           Data.Maybe (Maybe (Just))
 import           Data.Maybe (Maybe (Nothing))
-import           Prelude    (Eq, Int, Show, (+), (==))
+import           Prelude    (Eq, Int, Show (show), String, (+), (++), (==))
 
 data NonEmpty a = a :| (List a)
-  deriving (Show)
 
 l :: NonEmpty Int
 l = 1 :| (2 <| 3 <| Nil)
@@ -55,4 +54,15 @@ group Nil        = Nil
 group (Cons h t) = let (s, t') = L.span (\x -> x == h) t in (h :| s) <| group t'
 
 -- >>> Data.NonEmpty.group (1 <| 1 <| 1 <| 2 <| 1 <| 3 <| 3 <| 2 <| Nil)
--- [1 :| [1, 1], 2 :| [], 1 :| [], 3 :| [3], 2 :| []]
+-- [:[1, 1, 1], :[2], :[1], :[3, 3], :[2]]
+
+join :: Show a => String -> NonEmpty a -> String
+join _ (h :| Nil) = show h
+join d (h :| t)   = (show h) ++ d ++ L.join d t
+
+instance Show a => Show (NonEmpty a) where
+  show :: NonEmpty a -> String
+  show list = ":[" ++ join ", " list ++ "]"
+
+-- >>> show l
+-- ":[1, 2, 3]"
