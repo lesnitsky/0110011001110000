@@ -44,6 +44,7 @@ executables:
       - -rtsopts
       - -with-rtsopts=-N
       - -Wall
+      - -fwarn-incomplete-uni-patterns
     dependencies:
       - hello-hs
     <<: *language-extensions
