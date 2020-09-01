@@ -9,25 +9,22 @@ import           Prelude    (Eq, Int, Show (show), String, (+), (++), (==))
 
 data NonEmpty a = a :| (List a)
 
-l :: NonEmpty Int
-l = 1 :| (2 <| 3 <| Nil)
-
 length :: NonEmpty a -> Int
 length (_ :| t) = 1 + L.length t
 
--- >>> Data.NonEmpty.length l
+-- >>> Data.NonEmpty.length (1 :| (2 <| 3 <| Nil))
 -- 3
 
 head :: NonEmpty a -> a
 head (h :| _) = h
 
--- >>> Data.NonEmpty.head l
+-- >>> Data.NonEmpty.head (1 :| (2 <| 3 <| Nil))
 -- 1
 
 tail :: NonEmpty a -> List a
 tail (_ :| t) = t
 
--- >>> Data.NonEmpty.tail l
+-- >>> Data.NonEmpty.tail (1 :| (2 <| 3 <| Nil))
 -- [2, 3]
 
 init :: NonEmpty a -> List a
@@ -36,14 +33,16 @@ init (h :| t) = Cons h case (L.init t) of
   Just t' -> t'
   Nothing -> Nil
 
--- >>> Data.NonEmpty.init l
+-- >>> Data.NonEmpty.init (1 :| (2 <| 3 <| Nil))
 -- [1, 2]
 
 -- >>> Data.NonEmpty.init (1 :| Nil)
 -- []
 
 last :: NonEmpty a -> a
-last (h :| t) = let Just t' = L.last (Cons h t) in t'
+last (h :| t) = case L.last t of
+  Just l  -> l
+  Nothing -> h
 
 -- >>> Data.NonEmpty.last (2 :| (3 <| 4 <| Nil))
 -- 4
@@ -63,5 +62,5 @@ instance Show a => Show (NonEmpty a) where
   show :: NonEmpty a -> String
   show list = ":[" ++ join ", " list ++ "]"
 
--- >>> show l
+-- >>> show (1 :| (2 <| 3 <| Nil))
 -- ":[1, 2, 3]"
