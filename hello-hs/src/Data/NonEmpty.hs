@@ -1,4 +1,3 @@
-{-# LANGUAGE BlockArguments #-}
 module Data.NonEmpty where
 
 import           Data.List  (List (..), (<|))
@@ -28,9 +27,8 @@ tail (_ :| t) = t
 -- [2, 3]
 
 init :: NonEmpty a -> List a
-init (_ :| Nil) = Nil
-init (h :| t) = Cons h case (L.init t) of
-  Just t' -> t'
+init (h :| t) = case (L.init t) of
+  Just t' -> Cons h t'
   Nothing -> Nil
 
 -- >>> Data.NonEmpty.init (1 :| (2 <| 3 <| Nil))
