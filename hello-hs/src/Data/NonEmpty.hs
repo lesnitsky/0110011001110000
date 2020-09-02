@@ -54,7 +54,7 @@ group (Cons h t) = let (s, t') = L.span (\x -> x == h) t in (h :| s) <| group t'
 
 join :: Show a => String -> NonEmpty a -> String
 join _ (h :| Nil) = show h
-join d (h :| t)   = (show h) ++ d ++ L.join d t
+join d (h :| t)   = (show h) ++ d ++ L.joinString d t
 
 instance Show a => Show (NonEmpty a) where
   show :: NonEmpty a -> String

@@ -1,9 +1,13 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Data.List where
 
-import           Data.Maybe (Maybe (Nothing))
-import           Data.Maybe (Maybe (Just))
-import           Prelude    (Bool (..), Eq, Int, Show (show), String, fst,
-                             otherwise, snd, (*), (+), (++), (==), (||))
+import           Data.Maybe  (Maybe (Nothing))
+import           Data.Maybe  (Maybe (Just))
+import           Data.String (IsString (fromString))
+import           Prelude     (Bool (..), Char, Eq, Int, Show (show), String,
+                              fst, otherwise, snd, (*), (+), (++), (-), (==),
+                              (||))
 
 data List a
   = Nil
@@ -32,14 +36,41 @@ isEmpty _   = False
 -- >>> isEmpty Nil
 -- True
 
-join :: Show a => String -> List a -> String
-join _ Nil          = ""
-join _ (Cons h Nil) = show h
-join d (Cons h t)   = show h ++ d ++ join d t
+concat :: List a -> List a -> List a
+concat Nil b        = b
+concat (Cons h t) b = h <| concat t b
+
+-- >>> Data.List.concat (1 <| 2 <| Nil) (3 <| 4 <| Nil)
+-- [1, 2, 3, 4]
+
+concatMap :: (a -> List b) -> List a -> List b
+concatMap _ Nil        = Nil
+concatMap f (Cons h t) = concat (f h) (concatMap f t)
+
+-- >>> Data.List.concatMap (Data.List.replicate 5) (1 <| 2 <| Nil)
+-- [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+
+instance IsString (List Char) where
+  fromString :: String -> List Char
+  fromString ""      = Nil
+  fromString (h : t) = Cons h (fromString t)
+
+joinString :: Show a => String -> List a -> String
+joinString _ Nil          = ""
+joinString _ (Cons h Nil) = show h
+joinString d (Cons h t)   = show h ++ d ++ joinString d t
+
+join :: Show a => List Char -> List a -> List Char
+join _ Nil          = Nil
+join _ (Cons h Nil) = fromString (show h)
+join d (Cons h t)   = concat (concat (fromString (show h)) d) (join d t)
+
+-- >>> join ", " (1 <| 2 <| Nil)
+-- ['1', ',', ' ', '2']
 
 instance Show a => Show (List a) where
   show :: List a -> String
-  show l = "[" ++ join ", " l ++ "]"
+  show l = "[" ++ joinString ", " l ++ "]"
 
 -- >>> show l3
 -- "[2, 1, 0]"
@@ -141,3 +172,10 @@ init (Cons h t)   = case init t of
 
 -- >>> Data.List.init (1 <| Nil)
 -- Just []
+
+replicate :: Int -> a -> List a
+replicate 0 _ = Nil
+replicate n v = v <| (replicate (n - 1) v)
+
+-- >>> Data.List.replicate 4 "a"
+-- ["a", "a", "a", "a"]
