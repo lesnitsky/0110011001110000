@@ -114,16 +114,11 @@ map _ Nil        = Nil
 map f (Cons h t) = f h <| map f t
 
 span :: (a -> Bool) -> List a -> (List a, List a)
-span = _span (Nil, Nil)
-  where
-    _span :: (List a, List a) -> (a -> Bool) -> List a -> (List a, List a)
-    _span t _ Nil                       = t
-    _span t f l@(Cons h _t) | f h       = _span (h <| fst t, snd t) f _t
-                            | otherwise = (fst t, l)
-
--- TODO: fix order
+span _ Nil = (Nil, Nil)
+span f l@(Cons h t) | f h = let (l', r) = span f t in (h <| l', r)
+                    | otherwise = (Nil, l)
 -- >>> Data.List.span (< 5) (1 <| 2 <| 7 <| 9 <| 4 <| 1 <| Nil)
--- ([2, 1],[7, 9, 4, 1])
+-- ([1, 2],[7, 9, 4, 1])
 
 sum :: List Int -> Int
 sum Nil        = 0
@@ -187,4 +182,4 @@ reverse (Cons h t) = case init t of
   Just _  -> concat (reverse t) (h <| Nil)
 
 -- >>> Data.List.reverse (1 <| 2 <| 3 <| 4 <| Nil)
--- [3, 2, 1]
+-- [4, 3, 2, 1]
