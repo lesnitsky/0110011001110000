@@ -179,3 +179,12 @@ replicate n v = v <| (replicate (n - 1) v)
 
 -- >>> Data.List.replicate 4 "a"
 -- ["a", "a", "a", "a"]
+
+reverse :: List a -> List a
+reverse Nil        = Nil
+reverse (Cons h t) = case init t of
+  Nothing -> h <| Nil
+  Just _  -> concat (reverse t) (h <| Nil)
+
+-- >>> Data.List.reverse (1 <| 2 <| 3 <| 4 <| Nil)
+-- [3, 2, 1]
